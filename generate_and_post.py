@@ -16,7 +16,7 @@ print(">>> СЕКРЕТИ ПРОЧИТАНО", flush=True)
 GEMINI_MODEL = "gemini-2.5-flash"
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
 IMAGE_API = "https://image.pollinations.ai/prompt/"
-IMAGE_MODEL = "seedream"
+IMAGE_MODEL = "gptimage"
 
 THEMES = [
     "прийняття себе теперішньої, без бажання бути молодшою чи іншою",
