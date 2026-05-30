@@ -5,9 +5,13 @@ import random
 import requests
 from urllib.parse import quote
 
+print(">>> СКРИПТ СТАРТУВАВ", flush=True)
+
 TELEGRAM_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 TARGET = os.environ["TELEGRAM_REVIEW_CHAT_ID"]
 GEMINI_API_KEY = os.environ["GEMINI_API_KEY"]
+
+print(">>> СЕКРЕТИ ПРОЧИТАНО", flush=True)
 
 GEMINI_MODEL = "gemini-2.5-flash"
 GEMINI_URL = f"https://generativelanguage.googleapis.com/v1beta/models/{GEMINI_MODEL}:generateContent"
@@ -132,16 +136,22 @@ def send_text(text):
 
 
 def main():
+    print(">>> MAIN ПОЧАВСЯ", flush=True)
     theme = random.choice(THEMES)
     fmt_name, fmt_instr = random.choice(FORMATS)
     add_cta = random.random() < 0.5
-    print("Тема:", theme, "| Формат:", fmt_name, "| CTA:", add_cta)
+    print("Тема:", theme, "| Формат:", fmt_name, "| CTA:", add_cta, flush=True)
     post = generate_post(theme, fmt_instr, add_cta)
-    print("Пост:\n", post)
+    print("Пост:\n", post, flush=True)
     try:
         image = get_image(make_image_prompt(theme))
         send_photo(image, post)
-        print("Надіслано з картинкою.")
+        print(">>> Надіслано з картинкою.", flush=True)
     except Exception as e:
-        print("Без картинки:", e, file=sys.stderr)
+        print(">>> Без картинки:", e, file=sys.stderr, flush=True)
         send_text(post)
+        print(">>> Надіслано текстом.", flush=True)
+
+
+if __name__ == "__main__":
+    main()
